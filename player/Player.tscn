@@ -17,5 +17,3 @@ shape = SubResource("CapsuleShape2D_8j61h")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
 texture = ExtResource("1_esv1i")
-
-[node name="Camera2D" type="Camera2D" parent="."]
