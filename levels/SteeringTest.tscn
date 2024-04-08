@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpqiyvi6xdjlc"]
+
+[ext_resource type="PackedScene" uid="uid://b8qtsvsbok0rj" path="res://player/Player.tscn" id="1_c6mmj"]
+[ext_resource type="Script" path="res://levels/SteeringTest.gd" id="1_mv8um"]
+[ext_resource type="Texture2D" uid="uid://dryeffa16qi3k" path="res://assets/test level/GDfRbgWWQAEfFla.jpg" id="2_0qtuh"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_mv8um")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(322.5, 177.5)
+scale = Vector2(1.08111, 0.709446)
+texture = ExtResource("2_0qtuh")
+
+[node name="Player" parent="." instance=ExtResource("1_c6mmj")]
+position = Vector2(320, 180)
