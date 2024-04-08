@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8qtsvsbok0rj"]
+
+[ext_resource type="Texture2D" uid="uid://c5yb0yhqfxgsr" path="res://assets/player/car.png" id="1_esv1i"]
+[ext_resource type="Script" path="res://player/Player.gd" id="1_sk5dv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8j61h"]
+radius = 15.0
+height = 52.0
+
+[node name="Blue" type="CharacterBody2D"]
+script = ExtResource("1_sk5dv")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_8j61h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_esv1i")
+
+[node name="Camera2D" type="Camera2D" parent="."]
