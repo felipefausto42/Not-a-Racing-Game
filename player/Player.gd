@@ -2,19 +2,20 @@ class_name Player
 extends CharacterBody2D
 
 
-var wheel_base = 70
-var steering_angle = 15
-var engine_power = 800
-var friction = -0.9
-var drag = -0.001
-var braking = -450
-var max_speed_reversed = 250
-var slip_speed = 400
-var traction_fast = 0.1
-var traction_slow = 0.7
+var wheel_base : int = 70
+var steering_angle : int = 15
+var engine_power : int = 800
+var friction : float = -0.9
+var drag : float = -0.001
+var braking : int = -450
+var max_speed_reversed : int = 250
+var slip_speed : int = 400
+var traction_fast : float = 0.1
+var traction_slow : float = 0.7
+var acceleration : Vector2 = Vector2.ZERO
 
-var acceleration = Vector2.ZERO
 var steer_direction 
+
 
 func _process(delta):
 	Global.player_position = position
@@ -27,6 +28,7 @@ func _physics_process(delta):
 	calculate_steering(delta)
 	velocity += acceleration * delta
 	move_and_slide()
+
 
 func get_input():
 	var turn = 0
@@ -41,13 +43,17 @@ func get_input():
 	if Input.is_action_pressed("brake"):
 		acceleration = transform.x * braking
 
+
 func calculate_steering(delta):
 	var rear_wheel = position - transform.x * wheel_base/2.0
 	var front_wheel = position + transform.x * wheel_base/2.0
+	
 	rear_wheel += velocity * delta
 	front_wheel += velocity.rotated(steer_direction) * delta
+	
 	var new_heading = (front_wheel - rear_wheel).normalized()
 	var traction = traction_slow
+	
 	if velocity.length() > slip_speed:
 		traction = traction_fast
 	var direction = new_heading.dot(velocity.normalized())
