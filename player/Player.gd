@@ -1,16 +1,21 @@
 class_name Player
 extends CharacterBody2D
 
-var wheel_base = 64  # Distance from front to rear wheel
-var steering_angle = 15  # Amount that front wheel turns, in degrees
-@export var speed = 300
 
-var steer_direction
+var wheel_base : int = 64  # Distâncias das todas traseiras às dianteiras
+var steering_angle : float = 30  # Ângulo de curva dos pneus dianteiros
+var engine_power : int = 800
+var steer_direction : float
+var acceleration : Vector2 = Vector2.ZERO
+var friction : float = -9
+var drag : float = -0.001
 
 func _physics_process(delta):
-	
+	acceleration = Vector2.ZERO
 	get_input()
+	apply_friction()
 	calculate_steering(delta)
+	velocity += acceleration * delta
 	move_and_slide()
 	
 func get_input():
@@ -20,11 +25,10 @@ func get_input():
 	if Input.is_action_pressed("steer_right"):
 		turn += 1
 		
-	steer_direction = turn * steering_angle
-	velocity = Vector2.ZERO
+	steer_direction = turn * deg_to_rad(steering_angle)
 	
 	if Input.is_action_pressed("accelerate"):
-		velocity = transform.x * speed
+		acceleration = transform.x * engine_power
 	
 	
 func calculate_steering(delta):
@@ -40,3 +44,11 @@ func calculate_steering(delta):
 	
 	velocity = new_heading * velocity.length()
 	rotation = new_heading.angle()
+
+
+func apply_friction():
+	if velocity.length() < 5:
+		velocity = Vector2.ZERO
+	var friction_force = velocity * friction
+	var drag_force = velocity * velocity.length() * drag
+	acceleration += drag_force + friction_force
