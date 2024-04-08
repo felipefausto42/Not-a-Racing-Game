@@ -7,8 +7,10 @@ var steering_angle : float = 30  # Ângulo de curva dos pneus dianteiros
 var engine_power : int = 800
 var steer_direction : float
 var acceleration : Vector2 = Vector2.ZERO
-var friction : float = -9
+var friction : float = -0.9
 var drag : float = -0.001
+var braking : int = -450
+var max_speed_reverse : int = 250
 
 func _physics_process(delta):
 	acceleration = Vector2.ZERO
@@ -29,6 +31,9 @@ func get_input():
 	
 	if Input.is_action_pressed("accelerate"):
 		acceleration = transform.x * engine_power
+		
+	if Input.is_action_pressed("brake"):
+		acceleration = transform.x * braking
 	
 	
 func calculate_steering(delta):
@@ -41,13 +46,17 @@ func calculate_steering(delta):
 	front_wheel += velocity.rotated(steer_direction) * delta
 
 	var new_heading = (front_wheel - rear_wheel).normalized()
-	
-	velocity = new_heading * velocity.length()
+	var direction = new_heading.dot(velocity.normalized())
+	#direction = -1
+	if direction > 0:
+		velocity = new_heading * velocity.length()
+	if direction < 0:
+		velocity = -new_heading * min(velocity.length(), max_speed_reverse)
 	rotation = new_heading.angle()
 
 
 func apply_friction():
-	if velocity.length() < 5:
+	if velocity.length() < 10:
 		velocity = Vector2.ZERO
 	var friction_force = velocity * friction
 	var drag_force = velocity * velocity.length() * drag
