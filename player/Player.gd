@@ -17,13 +17,20 @@ var acceleration : Vector2 = Vector2.ZERO
 var steer_direction 
 
 
+func enter_tree():
+	set_multiplayer_authority(name.to_int())
+
+
 func _process(delta):
-	Global.player_position = position
 	
+	Global.player_position = position
+	Global.player_speed = velocity.length()
+	print_debug(name)
 
 func _physics_process(delta):
 	acceleration = Vector2.ZERO
-	get_input()
+	if is_multiplayer_authority():
+		get_input()
 	apply_friction()
 	calculate_steering(delta)
 	velocity += acceleration * delta

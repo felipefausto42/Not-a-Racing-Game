@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwpuqblis5pon"]
+
+[ext_resource type="Script" path="res://levels/MultiplayerTest.gd" id="1_tesbf"]
+[ext_resource type="PackedScene" uid="uid://b8qtsvsbok0rj" path="res://player/Player.tscn" id="2_vwq22"]
+
+[node name="MultiplayerTest" type="Node2D"]
+script = ExtResource("1_tesbf")
+player_scene = ExtResource("2_vwq22")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 32.0
+offset_top = 248.0
+offset_right = 76.0
+offset_bottom = 330.0
+theme_override_constants/separation = 20
+
+[node name="ID" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Host" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player/Player.tscn")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="VBoxContainer/Join" to="." method="_on_join_pressed"]
