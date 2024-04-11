@@ -29,8 +29,7 @@ func _process(delta):
 
 func _physics_process(delta):
 	acceleration = Vector2.ZERO
-	if is_multiplayer_authority():
-		get_input()
+	get_input()
 	apply_friction()
 	calculate_steering(delta)
 	velocity += acceleration * delta
@@ -38,6 +37,7 @@ func _physics_process(delta):
 
 
 func get_input():
+#if is_multiplayer_authority():
 	var turn = 0
 	if Input.is_action_pressed("steer_right"):
 		turn += 1
