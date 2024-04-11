@@ -2,6 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 
+@export var bullet : PackedScene
+
 var wheel_base : int = 70
 var steering_angle : int = 15
 var engine_power : int = 800
@@ -49,6 +51,9 @@ func get_input():
 		acceleration = transform.x * engine_power
 	if Input.is_action_pressed("brake"):
 		acceleration = transform.x * braking
+	
+	if Input.is_action_just_pressed("shoot"):
+		shoot()
 
 
 func calculate_steering(delta):
@@ -79,3 +84,12 @@ func apply_friction():
 	var friction_force = velocity * friction
 	var drag_force = velocity * velocity.length() * drag
 	acceleration += drag_force + friction_force
+	
+	
+func shoot():
+	var bullet_instance1 = bullet.instantiate()
+	var bullet_instance2 = bullet.instantiate()
+	owner.add_child(bullet_instance1)
+	owner.add_child(bullet_instance2)
+	bullet_instance1.transform = $Marker2D.global_transform
+	bullet_instance2.transform = $Marker2D2.global_transform
