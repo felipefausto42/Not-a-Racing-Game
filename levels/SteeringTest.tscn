@@ -1,61 +1,64 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpqiyvi6xdjlc"]
+[gd_scene load_steps=8 format=3 uid="uid://dpqiyvi6xdjlc"]
 
 [ext_resource type="PackedScene" uid="uid://b8qtsvsbok0rj" path="res://player/Player.tscn" id="1_c6mmj"]
 [ext_resource type="Script" path="res://levels/SteeringTest.gd" id="1_mv8um"]
-[ext_resource type="Texture2D" uid="uid://dryeffa16qi3k" path="res://assets/test level/GDfRbgWWQAEfFla.jpg" id="2_0qtuh"]
+[ext_resource type="Texture2D" uid="uid://x3t2mkw6ir21" path="res://assets/test level/track1.png" id="2_trf78"]
 [ext_resource type="Script" path="res://tools/camera/Camera.gd" id="4_7c537"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dx0wt"]
-size = Vector2(2107, 26)
+size = Vector2(2300, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vi6sm"]
 size = Vector2(177, 50)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l65wa"]
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_mv8um")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = -376.0
+offset_top = -80.0
+offset_right = -332.0
+offset_bottom = -57.0
+text = "Texto"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(322.5, 177.5)
 scale = Vector2(1.08111, 0.709446)
-texture = ExtResource("2_0qtuh")
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(1376, 176)
-scale = Vector2(1.08111, 0.709446)
-texture = ExtResource("2_0qtuh")
-
-[node name="Sprite2D3" type="Sprite2D" parent="."]
-position = Vector2(1360, 864)
-scale = Vector2(1.08111, 0.709446)
-texture = ExtResource("2_0qtuh")
-
-[node name="Sprite2D4" type="Sprite2D" parent="."]
-position = Vector2(312, 864)
-scale = Vector2(1.08111, 0.709446)
-texture = ExtResource("2_0qtuh")
+texture = ExtResource("2_trf78")
 
 [node name="Player" parent="." instance=ExtResource("1_c6mmj")]
+position = Vector2(-432, -56)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-432, -65)
 script = ExtResource("4_7c537")
+clampX = 1104
+originX = -432
+originY = -64
+clampY = 432
 
 [node name="Barriers" type="Node" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Barriers"]
+position = Vector2(-560, -592)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barriers/StaticBody2D"]
 position = Vector2(842.5, 1208)
 shape = SubResource("RectangleShape2D_dx0wt")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="Barriers"]
-position = Vector2(8, -1376)
+position = Vector2(-552, -1456)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barriers/StaticBody2D2"]
 position = Vector2(842.5, 1208)
 shape = SubResource("RectangleShape2D_dx0wt")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="Barriers"]
-position = Vector2(1008, -432)
+position = Vector2(448, -432)
 rotation = 1.5708
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barriers/StaticBody2D3"]
@@ -63,7 +66,7 @@ position = Vector2(842.5, 1208)
 shape = SubResource("RectangleShape2D_dx0wt")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="Barriers"]
-position = Vector2(3112, -432)
+position = Vector2(2624, -424)
 rotation = 1.5708
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barriers/StaticBody2D4"]
@@ -73,29 +76,51 @@ shape = SubResource("RectangleShape2D_dx0wt")
 [node name="Obstacles" type="Node" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Obstacles"]
-position = Vector2(8, 0)
+position = Vector2(-688, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/StaticBody2D"]
 position = Vector2(129, 479)
 shape = SubResource("RectangleShape2D_vi6sm")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="Obstacles"]
-position = Vector2(360, 0)
+position = Vector2(-336, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/StaticBody2D2"]
 position = Vector2(129, 479)
 shape = SubResource("RectangleShape2D_vi6sm")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="Obstacles"]
-position = Vector2(360, 48)
+position = Vector2(-336, 48)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/StaticBody2D3"]
 position = Vector2(-48, 480)
 shape = SubResource("RectangleShape2D_vi6sm")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Items" type="Node" parent="."]
 
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Texto"
+[node name="Guns" type="Area2D" parent="Items" groups=["guns_item"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Guns"]
+position = Vector2(24, -64)
+shape = SubResource("RectangleShape2D_l65wa")
+
+[node name="Guns2" type="Area2D" parent="Items" groups=["guns_item"]]
+position = Vector2(-8, 184)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Guns2"]
+position = Vector2(24, -64)
+shape = SubResource("RectangleShape2D_l65wa")
+
+[node name="Guns3" type="Area2D" parent="Items" groups=["guns_item"]]
+position = Vector2(320, 152)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Guns3"]
+position = Vector2(24, -64)
+shape = SubResource("RectangleShape2D_l65wa")
+
+[node name="Guns4" type="Area2D" parent="Items" groups=["guns_item"]]
+position = Vector2(408, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Guns4"]
+position = Vector2(24, -64)
+shape = SubResource("RectangleShape2D_l65wa")
