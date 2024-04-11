@@ -1,6 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
+@onready var spritesheet : Sprite2D = $Sprite2D
 
 @export var bullet : PackedScene
 
@@ -17,7 +18,7 @@ var traction_slow : float = 0.7
 var acceleration : Vector2 = Vector2.ZERO
 
 var steer_direction 
-
+var has_guns = false
 
 func enter_tree():
 	set_multiplayer_authority(name.to_int())
@@ -27,7 +28,11 @@ func _process(delta):
 	
 	Global.player_position = position
 	Global.player_speed = velocity.length()
-	print_debug(name)
+	print_debug(has_guns)
+	if has_guns:
+		spritesheet.frame = 1
+	else:
+		spritesheet.frame = 0
 
 func _physics_process(delta):
 	acceleration = Vector2.ZERO
@@ -52,7 +57,7 @@ func get_input():
 	if Input.is_action_pressed("brake"):
 		acceleration = transform.x * braking
 	
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and has_guns:
 		shoot()
 
 
@@ -89,7 +94,18 @@ func apply_friction():
 func shoot():
 	var bullet_instance1 = bullet.instantiate()
 	var bullet_instance2 = bullet.instantiate()
-	owner.add_child(bullet_instance1)
+	owner.add_child(bullet_instance1) # Owner referencia o nó raiz
 	owner.add_child(bullet_instance2)
 	bullet_instance1.transform = $Marker2D.global_transform
 	bullet_instance2.transform = $Marker2D2.global_transform
+
+
+func _on_hurtbox_area_entered(area):
+	if area.is_in_group("guns_item"):
+		has_guns = true
+		$GunsTimer.start()
+		area.queue_free()
+
+
+func _on_guns_timer_timeout():
+	has_guns = false
