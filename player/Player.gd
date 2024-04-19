@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var bullet : PackedScene
 
 var wheel_base : int = 70
-var steering_angle : int = 15
+var steering_angle : int = 25
 var engine_power : int = 800
 var friction : float = -0.9
 var drag : float = -0.001
