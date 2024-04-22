@@ -28,6 +28,7 @@ Zonas de lama: diminuem a velocidade do jogador que passa por cima.
 
 - **Nitro**: dá um boost de velocidade momentâneo;
 - **Óleo adulterado**: melhora a arma principal do veículo;
+- **Kit de reparo**: recupera um pouco de vida do carro;
 - **Escudo**: deixa o carro invulnerável por um período de tempo.
 
 ## Estilo Visual

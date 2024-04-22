@@ -51,5 +51,12 @@ shape = SubResource("RectangleShape2D_cm3ff")
 wait_time = 5.0
 one_shot = true
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "awdawdawdawd"
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="GunsTimer" to="." method="_on_guns_timer_timeout"]
