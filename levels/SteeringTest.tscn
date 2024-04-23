@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dpqiyvi6xdjlc"]
+[gd_scene load_steps=7 format=3 uid="uid://dpqiyvi6xdjlc"]
 
-[ext_resource type="PackedScene" uid="uid://b8qtsvsbok0rj" path="res://player/Player.tscn" id="1_c6mmj"]
+[ext_resource type="PackedScene" uid="uid://b8qtsvsbok0rj" path="res://player/trusty/Trusty.tscn" id="1_c6mmj"]
 [ext_resource type="Script" path="res://levels/SteeringTest.gd" id="1_mv8um"]
 [ext_resource type="Texture2D" uid="uid://x3t2mkw6ir21" path="res://assets/test level/track1.png" id="2_trf78"]
 [ext_resource type="Script" path="res://tools/camera/Camera.gd" id="4_7c537"]
@@ -11,19 +11,8 @@ size = Vector2(2300, 26)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vi6sm"]
 size = Vector2(177, 50)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l65wa"]
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_mv8um")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = -376.0
-offset_top = -80.0
-offset_right = -332.0
-offset_bottom = -57.0
-text = "Texto"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(322.5, 177.5)
@@ -33,13 +22,14 @@ texture = ExtResource("2_trf78")
 [node name="Player" parent="." instance=ExtResource("1_c6mmj")]
 position = Vector2(-432, -56)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
 position = Vector2(-432, -65)
 script = ExtResource("4_7c537")
 clampX = 1104
 originX = -432
 originY = -64
 clampY = 432
+player = NodePath("../Player")
 
 [node name="Barriers" type="Node" parent="."]
 
@@ -95,32 +85,3 @@ position = Vector2(-336, 48)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/StaticBody2D3"]
 position = Vector2(-48, 480)
 shape = SubResource("RectangleShape2D_vi6sm")
-
-[node name="Items" type="Node" parent="."]
-
-[node name="Guns" type="Area2D" parent="Items" groups=["guns_item"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Guns"]
-position = Vector2(24, -64)
-shape = SubResource("RectangleShape2D_l65wa")
-
-[node name="Guns2" type="Area2D" parent="Items" groups=["guns_item"]]
-position = Vector2(-8, 184)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Guns2"]
-position = Vector2(24, -64)
-shape = SubResource("RectangleShape2D_l65wa")
-
-[node name="Guns3" type="Area2D" parent="Items" groups=["guns_item"]]
-position = Vector2(320, 152)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Guns3"]
-position = Vector2(24, -64)
-shape = SubResource("RectangleShape2D_l65wa")
-
-[node name="Guns4" type="Area2D" parent="Items" groups=["guns_item"]]
-position = Vector2(408, 8)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Guns4"]
-position = Vector2(24, -64)
-shape = SubResource("RectangleShape2D_l65wa")
